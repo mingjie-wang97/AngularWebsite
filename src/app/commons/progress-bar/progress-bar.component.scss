@@ -1,0 +1,45 @@
+div {
+    font-family: "Quicksand", sans-serif;
+}
+
+#progress-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 0%;
+    background: linear-gradient(to top, #008aff, #00ffe7);
+    animation: animate 5s linear infinite;
+}
+
+#progress-bar:before, #progress-bar:after{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 0%;
+    background: linear-gradient(to top, #008aff, #00ffe7);
+    filter: blur(10px);
+}
+#progress-bar:after {
+    filter: blur(30px);
+}
+@keyframes animate {
+    0%, 100% {
+        filter: hue-rotate(0def);
+    }
+    50% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+#percent {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%) rotateX(180deg) rotateY(180deg);
+    right: 10px;
+    color: #fff;
+    font-size: 1rem;
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+}
