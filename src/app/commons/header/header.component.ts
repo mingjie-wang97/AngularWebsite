@@ -1,5 +1,7 @@
+import { HostListener } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ElementRef, Renderer2 } from '@angular/core';
+declare var $: any;
 
 @Component({
   selector: 'app-header',
@@ -9,14 +11,41 @@ import { ElementRef, Renderer2 } from '@angular/core';
 export class HeaderComponent implements OnInit {
   @ViewChild('navTrigger') navTrigger: ElementRef | undefined;
 
+  private screenHeight: any;
+
   constructor(
     private rd: Renderer2,
   ) { }
 
   ngOnInit(): void {
+    this.screenHeight = window.innerHeight;
+    if (this.screenHeight < 875) {
+      $('.nav').addClass('affix');
+    } else {
+      $('.nav').removeClass('affix');
+    }
   }
 
   ngAfterViewInit() {
+  }
+
+  @HostListener('window:scroll', ['$event']) onScrollEvent($event: any) {
+    this.screenHeight = window.innerHeight;
+    if ($(document).scrollTop() > 100 || this.screenHeight < 875) {
+      $('.nav').addClass('affix');
+    } else {
+      $('.nav').removeClass('affix');
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenHeight = window.innerHeight;
+    if (this.screenHeight < 875) {
+      $('.nav').addClass('affix');
+    } else {
+      $('.nav').removeClass('affix');
+    }
   }
 
   navTriggerFunction(): void {
@@ -43,7 +72,7 @@ export class HeaderComponent implements OnInit {
         element.style.display = null;
         element.style.opacity = null;
       } else {
-        element.style.opacity = op/10;
+        element.style.opacity = op / 10;
         op -= 1;
       }
     }, 10);
@@ -56,7 +85,7 @@ export class HeaderComponent implements OnInit {
       if (op > 10) {
         clearInterval(timer);
       } else {
-        element.style.opacity = op/10;
+        element.style.opacity = op / 10;
         op += 1;
       }
     }, 10);

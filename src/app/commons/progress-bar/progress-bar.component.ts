@@ -16,6 +16,7 @@ export class ProgressBarComponent implements OnInit {
   @HostListener('window:scroll', ['$event']) onScroll($event: any) {
     let totalHeight = document.body.scrollHeight - window.innerHeight;
     let progress = (window.pageYOffset / totalHeight) * 100;
+    if (!progress) progress = 0;
 
     let progressBarElement = document.getElementById("progress-bar");
     if (progressBarElement) progressBarElement.style.height = progress + "%";

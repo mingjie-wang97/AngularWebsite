@@ -12,6 +12,10 @@ import { ErrorPageComponent } from './commons/error-page/error-page.component';
 import { FaqComponent } from './commons/faq/faq.component';
 import { HomeComponent } from './home/home.component';
 import { ProgressBarComponent } from './commons/progress-bar/progress-bar.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ToTheMaxComponent } from './projects/to-the-max/to-the-max.component';
+import { PasswordKeeperComponent } from './projects/password-keeper/password-keeper.component'
 
 @NgModule({
   declarations: [
@@ -24,10 +28,14 @@ import { ProgressBarComponent } from './commons/progress-bar/progress-bar.compon
     ErrorPageComponent,
     FaqComponent,
     HomeComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    ToTheMaxComponent,
+    PasswordKeeperComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [],

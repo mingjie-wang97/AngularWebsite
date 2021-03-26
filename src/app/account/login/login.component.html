@@ -1,1 +1,236 @@
-<p>login works!</p>
+<section class="login-background">
+    <div class="container login-container">
+
+        <div class="login-box">
+            <div class="image-box">
+                <img src="{{signInImageURL}}" alt="">
+            </div>
+            <div class="login-form-box">
+                <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+                    <h2>Sign In</h2>
+                    <div class="input-fields">
+                        <input type="text" required autocomplete="off" formControlName="username">
+                        <label class="placeholder">Username</label>
+                        <div class="error-message-box"
+                            *ngIf="loginForm.controls.username.errors && (loginForm.controls.username.dirty || loginForm.controls.username.touched)"
+                            [@error-message-animation]>
+                            <div *ngIf="loginForm.controls.username.hasError('required')" [@error-message-animation]>
+                                <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false"
+                                    width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                    </path>
+                                </svg>
+                                <span class="error-message">
+                                    {{ errorMessageDic["username-require"] }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="error-message-box" *ngIf="!usernameCheckValid" [@error-message-animation]>
+                            <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false" width="16px"
+                                height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                </path>
+                            </svg>
+                            <span class="error-message">
+                                {{ errorMessageDic["username-incorrect"] }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="input-fields">
+                        <input type="password" required autocomplete="off" formControlName="password"
+                            (keydown.tab)="$event.preventDefault()">
+                        <label class="placeholder">Password</label>
+                        <div class="error-message-box"
+                            *ngIf="loginForm.controls.password.errors && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"
+                            [@error-message-animation]>
+                            <div *ngIf="loginForm.controls.password.hasError('required')" [@error-message-animation]>
+                                <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false"
+                                    width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                    </path>
+                                </svg>
+                                <span class="error-message">
+                                    {{ errorMessageDic["password-require"] }}
+                                </span>
+                            </div>
+                            <div *ngIf="loginForm.controls.password.hasError('format')" [@error-message-animation]>
+                                <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false"
+                                    width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                    </path>
+                                </svg>
+                                <span class="error-message">
+                                    {{ errorMessageDic["password-incorrect"] }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="error-message-box" *ngIf="!passwordCheckValid" [@error-message-animation]>
+                            <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false" width="16px"
+                                height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                </path>
+                            </svg>
+                            <span class="error-message">
+                                {{ errorMessageDic["password-incorrect"] }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="login-form-submit-line input-fields">
+                        <p class="login-signup">
+                            don't have an account?<br>
+                            <span (click)="toggleActive()">Sign Up</span>
+                        </p>
+                        <input type="submit" value="LOGIN" [disabled]="!loginForm.valid">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="signup-box">
+            <div class="login-form-box">
+                <form class="login-form" [formGroup]="signupForm" (ngSubmit)="signup()">
+                    <h2>create an account</h2>
+                    <div class="input-fields">
+                        <input type="text" required autocomplete="off" formControlName="username">
+                        <label class="placeholder">Username</label>
+                        <div class="error-message-box"
+                            *ngIf="signupForm.controls.username.errors && (signupForm.controls.username.dirty || signupForm.controls.username.touched)"
+                            [@error-message-animation]>
+                            <div *ngIf="signupForm.controls.username.hasError('required')" [@error-message-animation]>
+                                <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false"
+                                    width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                    </path>
+                                </svg>
+                                <span class="error-message">
+                                    {{ errorMessageDic["username-require"] }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-fields">
+                        <input type="text" required autocomplete="off" formControlName="email">
+                        <label class="placeholder">Email</label>
+                        <div class="error-message-box"
+                            *ngIf="signupForm.controls.email.errors && (signupForm.controls.email.dirty || signupForm.controls.email.touched)"
+                            [@error-message-animation]>
+                            <div *ngIf="signupForm.controls.email.hasError('required')" [@error-message-animation]>
+                                <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false"
+                                    width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                    </path>
+                                </svg>
+                                <span class="error-message">
+                                    {{ errorMessageDic["email-require"] }}
+                                </span>
+                            </div>
+
+                            <div *ngIf="signupForm.controls.email.hasError('email')" [@error-message-animation]>
+                                <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false"
+                                    width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                    </path>
+                                </svg>
+                                <span class="error-message">
+                                    {{ errorMessageDic["email-incorrect"] }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-fields">
+                        <input type="password" required autocomplete="off" formControlName="password">
+                        <label class="placeholder">Create Password</label>
+                        <div class="error-message-box"
+                            *ngIf="signupForm.controls.password.errors && (signupForm.controls.password.dirty || signupForm.controls.password.touched)"
+                            [@error-message-animation]>
+                            <div *ngIf="signupForm.controls.password.hasError('required')" [@error-message-animation]>
+                                <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false"
+                                    width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                    </path>
+                                </svg>
+                                <span class="error-message">
+                                    {{ errorMessageDic["password-require"] }}
+                                </span>
+                            </div>
+                            <div *ngIf="signupForm.controls.password.hasError('format')" [@error-message-animation]>
+                                <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false"
+                                    width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                    </path>
+                                </svg>
+                                <span class="error-message">
+                                    {{ errorMessageDic["password-format"] }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="normal-message-box"
+                            *ngIf="!signupForm.controls.password.errors && !signupForm.controls.password.dirty"
+                            [@error-message-animation]>
+                            <span class="normal-message">
+                                Use 8 or more characters with a mix of at least 1 uppercase letter, 1 lowercase letter,
+                                1 number & 1 symbol.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="input-fields">
+                        <input type="password" required autocomplete="off" formControlName="confirmPassword">
+                        <label class="placeholder">Confirm Password</label>
+                        <div class="error-message-box"
+                            *ngIf="signupForm.controls.confirmPassword.errors && (signupForm.controls.confirmPassword.dirty || signupForm.controls.confirmPassword.touched)"
+                            [@error-message-animation]>
+                            <div *ngIf="signupForm.controls.confirmPassword.hasError('required')" [@error-message-animation]>
+                                <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false"
+                                    width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                    </path>
+                                </svg>
+                                <span class="error-message">
+                                    {{ errorMessageDic["confirmPassword-require"] }}
+                                </span>
+                            </div>
+                            <div *ngIf="signupForm.controls.confirmPassword.hasError('confirm')" [@error-message-animation]>
+                                <svg aria-hidden="true" class="error-svg" fill="currentColor" focusable="false"
+                                    width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+                                    </path>
+                                </svg>
+                                <span class="error-message">
+                                    {{ errorMessageDic["confirmPassword-incorrect"] }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="login-form-submit-line input-fields">
+                        <p class="login-signup">
+                            Already have an account?<br>
+                            <span (click)="toggleActive()">Sign In</span>
+                        </p>
+                        <input type="submit" value="SIGNUP" [disabled]="!signupForm.valid">
+                    </div>
+                </form>
+            </div>
+            <div class="image-box">
+                <img src="{{signUpImageURL}}" alt="">
+            </div>
+        </div>
+    </div>
+</section>
